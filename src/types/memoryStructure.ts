@@ -2,7 +2,7 @@ export type memoryStructure = {
     id : string;
     data : {
         uri : string;
-        method : "GET" | "POST", //TODO: Support for other HTTP methods.
+        method : methods, //TODO: Support for other HTTP methods.
         data? : Object | Array<any> | string;
         requester: string;
     };

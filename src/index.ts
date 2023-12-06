@@ -9,7 +9,13 @@ const memoryInstance : Memory_db = new Memory_db({
     prevent_garbage_collection : true
 })
 
-serverInstance.initialize().then(r => {
+serverInstance.initialize(memoryInstance).then(r => {
     console.log("Server Initialized. ✅")
-    memoryInstance.appendData("http", methods.GET, "Aggelos", {});
 })
+
+
+// EXAMPLES:
+/*
+memoryInstance.appendData("http", methods.GET, "Aggelos", {});
+memoryInstance.getData("ulid-id", "GET | POST");
+*/
