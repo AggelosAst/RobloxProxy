@@ -20,5 +20,5 @@ This project utilizes the infrastructure of Roblox servers to create an reliable
 1. Clone the repository:
 
    ```bash
-   git clone [https://github.com/your-username/roblox-http-proxy.git](https://github.com/AggelosAst/RobloxProxy.git)https://github.com/AggelosAst/RobloxProxy.git
+   git clone https://github.com/AggelosAst/RobloxProxy.git
    ```
