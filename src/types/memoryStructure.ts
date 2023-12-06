@@ -6,8 +6,13 @@ export type memoryStructure = {
         data? : Object | Array<any> | string;
         requester: string;
     };
-    proxy? : {
+    proxy? : { //TODO: Possibly mark this as deprecated?
       host : string;
       port : string;
     };
+}
+
+export enum methods {
+    GET = 0,
+    POST = 1
 }
