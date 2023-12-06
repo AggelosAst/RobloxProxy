@@ -1,5 +1,5 @@
 export type result = {
     error?: any;
-    result: Object | string;
+    result: any;
     data? : Object | Array<Object> | Array<any>
 }

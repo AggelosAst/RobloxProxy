@@ -75,7 +75,20 @@ export class Server {
                 }
             }
         })
-        this.router.get("/server_data", async (req: Request, res: Response, next: NextFunction) => {
+        this.router.get("/available_servers", async (req: Request, res: Response, next: NextFunction) => {
+            try {
+                const servers = await this.memoryInstance.getAllServers();
+                return res.status(200).json({
+                    data: servers.result
+                })
+            } catch (e : any) {
+                console.log("Error occured while fetchign all servers");
+                return res.status(500).json({
+                    error: e
+                })
+            }
+        })
+            this.router.get("/server_data", async (req: Request, res: Response, next: NextFunction) => {
             const jobId: string = req.body["jobId"];
             if (!jobId) {
                 return res.status(400).json({

@@ -12,6 +12,14 @@ export class Memory_db {
      public constructor(options : MemoryOptions) {
         this.option = options;
     }
+    public async getAllServers() : Promise<result> {
+         return new Promise(async (resolve, reject) => {
+             const servers : string[] = this.memory_db.map((item : memoryStructure) => item.id);
+             resolve({
+                 result : servers
+             })
+         })
+    }
     public async getData(id: string, method?: methods) : Promise<databaseResult<MemoryData>> {
          return new Promise((resolve, reject) => {
              if (id && method) {
