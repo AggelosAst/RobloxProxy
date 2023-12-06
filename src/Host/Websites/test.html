@@ -1,0 +1,64 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Test</title>
+    <style>
+        @import url(https://fonts.bunny.net/css?family=outfit:100);
+        body {
+            background: linear-gradient(to bottom, #8E44AD, #5D3E8B, #2C3E50);
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            user-select: none;
+            height: 100%;
+        }
+        .container h1 {
+            font-family: "Outfit";
+            font-size: 1.9rem;
+            color: #C0C0C0;
+        }
+        .freddyfazbear {
+            color: #FFFFFF;
+            text-decoration: #FFFFFF underline solid;
+            transition: color 0.3s;
+        }
+        .freddyfazbear:hover {
+            color: #4291e1;
+            text-decoration-color: #4291e1;
+        }
+
+        .inputs input {
+            outline: none;
+            border-style: solid;
+            border-radius: 5px;
+            border-color: transparent;
+        }
+        .inputs label {
+            color: #C0C0C0;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Welcome! To start, give a <span class="freddyfazbear">URL</span>, <span class="freddyfazbear">Method</span> and your <span class="freddyfazbear">Identifier</span></h1>
+    <div class="inputs">
+        <label>
+            <label for="url">Url</label>
+            <input type="text" placeholder="Url" name="url" id="url" maxlength="60">
+            <label for="method">Method</label>
+            <input type="text" placeholder="Method" name="method" id="method" max="5">
+            <label for="identity">Identity</label>
+            <input type="text" placeholder="Identity" name="identity" id="identity" maxlength="20">
+        </label>
+    </div>
+</div>
+
+</body>
+</html>

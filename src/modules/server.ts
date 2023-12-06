@@ -40,42 +40,42 @@ export class Server {
         })
     }
     private async registerAPIS() : Promise<void> {
-        this.router.post("/register_server", async (req : Request, res : Response, next : NextFunction) => {
-            const jobId : string = req.body["jobId"];
-            const uri : string = req.body["uri"];
-            const method : methods = req.body["method"]; //TODO: Make it check if its a valid enum
-            const requester : string = req.body["requester"];
+        this.router.post("/register_server", async (req: Request, res: Response, next: NextFunction) => {
+            const jobId: string = req.body["jobId"];
+            const uri: string = req.body["uri"];
+            const method: methods = req.body["method"]; //TODO: Make it check if its a valid enum
+            const requester: string = req.body["requester"];
             if (!jobId) {
                 return res.status(400).json({
-                    error : "Missing JobId"
+                    error: "Missing JobId"
                 })
             }
             if (!methods[method]) {
                 return res.status(400).json({
-                    error : `Invalid method ${method}. Method must be of ${methods}`
+                    error: `Invalid method ${method}. Method must be of ${methods}`
                 })
             }
             try {
-                const result : databaseResult<MemoryData> = await this.memoryInstance.getData(jobId);
+                const result: databaseResult<MemoryData> = await this.memoryInstance.getData(jobId);
                 console.log(result.result);
                 return res.status(500).json({
                     error: "Already exists"
                 })
-            } catch (e : any) {
-              try {
-                  await this.memoryInstance.appendData(uri, method, requester, jobId)
-                  return res.status(200).json({
-                      message: "Success"
-                  })
-              } catch (e: any) {
-                  console.log(`Couldnt appendData ⚠️`)
-                  return res.status(500).json({
-                      error: e.error
-                  })
-              }
+            } catch (e: any) {
+                try {
+                    await this.memoryInstance.appendData(uri, method, requester, jobId)
+                    return res.status(200).json({
+                        message: "Success"
+                    })
+                } catch (e: any) {
+                    console.log(`Couldnt appendData ⚠️`)
+                    return res.status(500).json({
+                        error: e.error
+                    })
+                }
             }
         })
-        this.router.get("/server_data", async (req : Request, res : Response, next : NextFunction) => {
+        this.router.get("/server_data", async (req: Request, res: Response, next: NextFunction) => {
             const jobId: string = req.body["jobId"];
             if (!jobId) {
                 return res.status(400).json({
@@ -83,15 +83,20 @@ export class Server {
                 })
             }
             try {
-                const result : databaseResult<MemoryData> = await this.memoryInstance.getData(jobId);
+                const result: databaseResult<MemoryData> = await this.memoryInstance.getData(jobId);
                 return res.status(200).json({
                     data: result.result
                 })
-            } catch (e : any) {
+            } catch (e: any) {
                 return res.status(500).json({
                     error: e.error
                 })
             }
+        })
+        this.router.get("/test", async (req: Request, res: Response, next: NextFunction) => {
+            return res.status(200).sendFile("test.html", {
+                root : "./src/Host/Websites"
+            })
         })
     }
 }
