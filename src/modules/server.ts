@@ -50,6 +50,11 @@ export class Server {
                     error : "Missing JobId"
                 })
             }
+            if (!methods[method]) {
+                return res.status(400).json({
+                    error : `Invalid method ${method}. Method must be of ${methods}`
+                })
+            }
             try {
                 const result : databaseResult<MemoryData> = await this.memoryInstance.getData(jobId);
                 console.log(result.result);
@@ -79,7 +84,6 @@ export class Server {
             }
             try {
                 const result : databaseResult<MemoryData> = await this.memoryInstance.getData(jobId);
-                console.log(result.result);
                 return res.status(200).json({
                     data: result.result
                 })
