@@ -6,6 +6,7 @@ import {MemoryOptions} from "../types/memoryOptions";
 import {databaseResult} from "../types/databaseResult";
 import {MemoryData} from "./memoryData";
 import {methods} from "../types/memoryStructure";
+import {ulid} from "ulid";
 export class Server {
     private readonly options : proxyOptions;
     private router!: express.Router;
@@ -40,6 +41,27 @@ export class Server {
         })
     }
     private async registerAPIS() : Promise<void> {
+        this.router.delete("/register_server", async (req: Request, res: Response, next: NextFunction) => {
+            const reqId: string = req.body["reqId"];
+            if (!reqId) {
+                return res.status(400).json({
+                    error: "Missing reqId"
+                })
+            }
+            try {
+                const result: databaseResult<MemoryData[]> = await this.memoryInstance.getData(undefined, reqId);
+                console.log(result.result);
+                const deleteres : databaseResult<result> = await this.memoryInstance.removeData(undefined, reqId);
+                return res.status(200).json({
+                    message: "Removed",
+                    data: deleteres.result.data
+                })
+            } catch (e: any) {
+                return res.status(500).json({
+                    error: "Doesnt exist"
+                })
+            }
+        })
         this.router.post("/register_server", async (req: Request, res: Response, next: NextFunction) => {
             const jobId: string = req.body["jobId"];
             const uri: string = req.body["uri"];
@@ -56,14 +78,15 @@ export class Server {
                 })
             }
             try {
-                const result: databaseResult<MemoryData> = await this.memoryInstance.getData(jobId);
+                const result: databaseResult<MemoryData[]> = await this.memoryInstance.getData(undefined, ulid()); //TODO: Fix this code
                 console.log(result.result);
                 return res.status(500).json({
                     error: "Already exists"
                 })
             } catch (e: any) {
+                console.log("DOESNT EXIST")
                 try {
-                    await this.memoryInstance.appendData(uri, method, requester, jobId)
+                    await this.memoryInstance.appendData(uri, method, requester, jobId, ulid())
                     return res.status(200).json({
                         message: "Success"
                     })
@@ -77,7 +100,7 @@ export class Server {
         })
         this.router.get("/available_servers", async (req: Request, res: Response, next: NextFunction) => {
             try {
-                const servers = await this.memoryInstance.getAllServers();
+                const servers : result = await this.memoryInstance.getAllServers();
                 return res.status(200).json({
                     data: servers.result
                 })
@@ -96,7 +119,7 @@ export class Server {
                 })
             }
             try {
-                const result: databaseResult<MemoryData> = await this.memoryInstance.getData(jobId);
+                const result: databaseResult<MemoryData[]> = await this.memoryInstance.getData(jobId);
                 return res.status(200).json({
                     data: result.result
                 })

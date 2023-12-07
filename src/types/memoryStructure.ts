@@ -1,5 +1,6 @@
 export type memoryStructure = {
     id : string;
+    reqId : string;
     data : {
         uri : string;
         method : methods, //TODO: Support for other HTTP methods.
