@@ -77,18 +77,15 @@ export class Memory_db {
                                  requester: item.data.requester
                              }
                          })})
-                     console.log(data, "Fr")
                      resolve({
                          result : data
                      })
                  } else {
-                     console.log("NOT FOUND")
                      reject({
                          error: "Item could not be found"
                      })
                  }
              } else if(requestId) {
-                 console.log("Request iod")
                  const result : memoryStructure[] | undefined = this.memory_db.filter(item => item.reqId == requestId);
                  if (result.length > 0) {
                      const data : MemoryData[] = result.map((item : memoryStructure) => {
@@ -105,7 +102,6 @@ export class Memory_db {
                          result : data
                      })
                  } else {
-                     console.log("NOT FOUND")
                      reject({
                          error: "Item could not be found"
                      })
@@ -133,7 +129,6 @@ export class Memory_db {
                      error: e
                  })
              }
-             console.log(this.memory_db)
              resolve({
                  result : {
                      result : "Success"

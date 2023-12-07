@@ -50,7 +50,6 @@ export class Server {
             }
             try {
                 const result: databaseResult<MemoryData[]> = await this.memoryInstance.getData(undefined, reqId);
-                console.log(result.result);
                 const deleteres : databaseResult<result> = await this.memoryInstance.removeData(undefined, reqId);
                 return res.status(200).json({
                     message: "Removed",
@@ -79,12 +78,10 @@ export class Server {
             }
             try {
                 const result: databaseResult<MemoryData[]> = await this.memoryInstance.getData(undefined, ulid()); //TODO: Fix this code
-                console.log(result.result);
                 return res.status(500).json({
                     error: "Already exists"
                 })
             } catch (e: any) {
-                console.log("DOESNT EXIST")
                 try {
                     await this.memoryInstance.appendData(uri, method, requester, jobId, ulid())
                     return res.status(200).json({

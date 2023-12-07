@@ -14,8 +14,10 @@ serverInstance.initialize(memoryInstance).then(r => {
 })
 
 
-// EXAMPLES:
 /*
-memoryInstance.appendData("http", methods.GET, "Aggelos", {});
-memoryInstance.getData("ulid-id", "GET | POST");
+    Endpoints:
+    [POST] /register_server -> {}
+    [GET] /server_data -> {"jobid" : "jobId"}
+    [GET] /available_servers
+    [DELETE] /register_server -> {"reqId" : "ulid"}
 */
