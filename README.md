@@ -1,5 +1,7 @@
 # Roblox HTTP Proxy Project
 
+# NO LONGER MAINTAINED! 
+
 ## Introduction
 
 This project utilizes the infrastructure of Roblox servers to create an reliable HTTP proxy network. Its main purpose is to provide an trustworthy solution, for web applications.
